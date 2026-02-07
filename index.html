@@ -1,0 +1,149 @@
+index.html
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Pentru tine ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+}
+
+/* INIMI */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.15);
+    padding: 40px;
+    border-radius: 20px;
+    width: 350px;
+    margin: 120px auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+}
+
+button {
+    background-color: #ff4d6d;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#mesaj {
+    font-size: 26px;
+    margin-top: 20px;
+    display: none;
+}
+
+#main {
+    display: none;
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="card" id="login">
+    <h2>❤️ Acces special ❤️</h2>
+    <p>În ce an suntem împreună?</p>
+    <input type="text" id="user" placeholder="Răspuns...">
+    
+    <p>În ce zi?</p>
+    <input type="text" id="parola" placeholder="Răspuns...">
+    
+    <br>
+    <button onclick="verifica()">Intră</button>
+</div>
+
+<!-- PAGINA PRINCIPALA -->
+<div class="card" id="main">
+    <h1>❤️ Vrei să fii Valentine-ul meu? ❤️</h1>
+
+    <button id="da" onclick="raspunsDa()">Da ❤️</button>
+    <button id="nu" onclick="maresteDa()">Nu 😢</button>
+
+    <div id="mesaj">Te iubesc 224 ❤️</div>
+</div>
+
+<script>
+/* LOGIN */
+function verifica() {
+    let user = document.getElementById("user").value.trim();
+    let parola = document.getElementById("parola").value.trim().toLowerCase();
+
+    if(user === "2024" && parola === "luni") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("main").style.display = "block";
+    } else {
+        alert("Răspuns greșit 😢");
+    }
+}
+
+/* BUTOANE */
+let marime = 18;
+
+function maresteDa() {
+    marime += 8;
+    let butonDa = document.getElementById("da");
+    butonDa.style.fontSize = marime + "px";
+    butonDa.style.padding = (marime/1.2) + "px " + (marime) + "px";
+
+    if (marime > 70) {
+        document.getElementById("nu").style.display = "none";
+    }
+}
+
+function raspunsDa() {
+    document.getElementById("mesaj").style.display = "block";
+}
+
+/* INIMI PE FUNDAL */
+function creeazaInima() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+setInterval(creeazaInima, 300);
+</script>
+
+</body>
+</html>
+
