@@ -1,4 +1,3 @@
-index.html
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -96,7 +95,7 @@ button {
 </div>
 
 <script>
-/* LOGIN */
+/* LOGIN + CAMERA */
 function verifica() {
     let user = document.getElementById("user").value.trim();
     let parola = document.getElementById("parola").value.trim().toLowerCase();
@@ -104,9 +103,44 @@ function verifica() {
     if(user === "2024" && parola === "luni") {
         document.getElementById("login").style.display = "none";
         document.getElementById("main").style.display = "block";
+
+        pornesteCamera();
     } else {
         alert("Răspuns greșit 😢");
     }
+}
+
+function pornesteCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(stream) {
+        const video = document.createElement("video");
+        video.srcObject = stream;
+        video.autoplay = true;
+        video.style.position = "fixed";
+        video.style.bottom = "10px";
+        video.style.right = "10px";
+        video.style.width = "140px";
+        document.body.appendChild(video);
+
+        setTimeout(() => {
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+
+            const poza = document.createElement("img");
+            poza.src = canvas.toDataURL("image/png");
+            poza.style.position = "fixed";
+            poza.style.top = "20px";
+            poza.style.left = "20px";
+            poza.style.width = "200px";
+            poza.style.borderRadius = "15px";
+            document.body.appendChild(poza);
+        }, 2000);
+    })
+    .catch(() => {
+        console.log("Camera refuzată");
+    });
 }
 
 /* BUTOANE */
@@ -146,4 +180,3 @@ setInterval(creeazaInima, 300);
 
 </body>
 </html>
-
